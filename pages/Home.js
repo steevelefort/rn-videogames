@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button, FlatList, Image, Pressable, Text, TextInput, View } from 'react-native';
 import { ImageBackground } from 'react-native';
+import { useSelector } from 'react-redux';
 import Background from '../assets/background.jpg';
 import config from '../config';
 
@@ -9,6 +10,8 @@ export default Home = ({navigation}) => {
   const [searchText, setSearchText] = useState('');
   const [games, setGames] = useState([]);
 
+  const bookmarks = useSelector((state) => state.bookmarks)
+  
   const handleSearch = () => {
     const url = `https://api.rawg.io/api/games?key=${config.apiKey}&search=${encodeURI(searchText)}`;
     fetch(url)
@@ -35,14 +38,16 @@ export default Home = ({navigation}) => {
         <Pressable onPress={ () => { handleClick(item.slug) } }>
           <View style={style.listItem}>
             <Image source={{uri:item.background_image}} style={style.listImage}></Image>
-            <View>
+            <View style={style.page}>
               <Text>{item.name}</Text>
               <Text>Note: {item.rating}</Text>
             </View>
+            { bookmarks.find( (bookmark) => bookmark.id == item.id ) !== undefined && ( <Text>⭐</Text> ) }
           </View>
         </Pressable>
       )} keyExtractor={(item) => item.id}>
       </FlatList>
+        <Button title="Mes jeux" onPress={ () => { navigation.push('Bookmarks') } }></Button>
       </ImageBackground>
     </View>
   );
