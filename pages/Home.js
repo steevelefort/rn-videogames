@@ -25,7 +25,7 @@ export default Home = ({navigation}) => {
   }
 
   return (
-    <View style={style.page}>
+    <View style={style.full}>
       <ImageBackground source={Background} resizeMode="cover" style={style.background}>
       <View style={style.searchBar}>
         <TextInput style={style.searchInput}
@@ -34,7 +34,7 @@ export default Home = ({navigation}) => {
         ></TextInput>
         <Button title="Chercher" onPress={handleSearch}></Button>
       </View>
-      <FlatList style={style.list} data={games} renderItem={ ({item}) => (
+      <FlatList style={style.full} data={games} renderItem={ ({item}) => (
         <Pressable onPress={ () => { handleClick(item.slug) } }>
           <View style={style.listItem}>
             <Image source={{uri:item.background_image}} style={style.listImage}></Image>
@@ -47,14 +47,17 @@ export default Home = ({navigation}) => {
         </Pressable>
       )} keyExtractor={(item) => item.id}>
       </FlatList>
-        <Button title="Mes jeux" onPress={ () => { navigation.push('Bookmarks') } }></Button>
+        <View style={style.buttonsBar}>
+          <Button style={style.full} title="Mes jeux" onPress={ () => { navigation.push('Bookmarks') } }></Button>
+          <Button style={style.full} title="Magasin" onPress={ () => { navigation.push('Shop') } }></Button>
+        </View>
       </ImageBackground>
     </View>
   );
 };
 
 const style = {
-  page: {
+  full: {
     flex: 1
   },
   searchBar:{
@@ -66,9 +69,6 @@ const style = {
     borderWidth: 1,
     borderColor: "#dddddd",
     backgroundColor: 'rgba(255,255,255,0.5)',
-  },
-  list: {
-    flex:1,
   },
   listItem: {
     backgroundColor: 'rgba(255,255,255,0.5)',
@@ -84,5 +84,10 @@ const style = {
   background: {
     flex:1,
   },
+  buttonsBar: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    paddingTop: 10
+  }
 }
 

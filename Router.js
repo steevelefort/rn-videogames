@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Details from './pages/Details';
 import Home from './pages/Home';
 import Bookmarks from './pages/Bookmarks';
+import Shop from './pages/Shop';
 import { useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux';
@@ -29,6 +30,7 @@ const Router = () => {
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
         <Stack.Screen name="Details" component={Details} options={{ title: "Détails" }} />
         <Stack.Screen name="Bookmarks" component={Bookmarks} options={{ title: "Mes jeux" }} />
+        <Stack.Screen name="Shop" component={Shop} options={{ title: "Mon magasin" }} />
       </Stack.Navigator>
     </NavigationContainer>
   )
